@@ -1,0 +1,32 @@
+﻿<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+@using Buoi_2.Models;
+BÀI 3
+
+@model ModelForAction3
+
+@{
+    float ketQua = ViewBag.KetQua;
+}
+
+<div class="mx-3">
+    <form class="row" action="~/Math/Action3">
+        <div class="col-6">
+            <div class="form-group my-2">
+                <label for="Name">Cạnh</label>
+                @Html.TextBoxFor(m => m.canh, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.canh, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="row m-0 p-0">
+                <button type="submit" class="col-5 btn btn-success rounded my-2">Tính toán</button>
+                <div class="col-2"></div>
+                <a href="/Math/Action3" class="col-5 btn btn-secondary rounded my-2">Làm mới</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="form-group my-2">
+        <label for="Price">Kết quả: @ketQua</label>
+    </div>
+</div>

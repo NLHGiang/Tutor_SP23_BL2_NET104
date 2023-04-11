@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - [GiangNLH - ArtShop]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j.6gD" crossorigin="anonymous" />
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+</head>
+
+<body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-light row m-0 p-0 gap-0">
+        <div class="col-3">
+            <a class="navbar-brand" href="#home">
+                <img src="~/images/logo_ngang.png" class="brand-image d-inline-block align-top p-2" alt="">
+            </a>
+        </div>
+        <div class="col-4 row m-0 p-0">
+            <div class="col-3 fs-6 text-center">
+                <a href="~/Customer/Home/Index" style="text-decoration: none; color: unset;">
+                    Trang chủ
+                </a>
+            </div>
+            <div class="col-3 fs-6 text-center" style="border-left: 1px solid;">
+                <a href="~/Customer/Home/About" style="text-decoration: none; color: unset;">
+                    Giới thiệu
+                </a>
+            </div>
+            <div class="col-6 fs-6 text-center" style="border-left: 1px solid;">
+                <a href="~/Customer/Product/Index" style="text-decoration: none; color: unset;">
+                    Danh sách sản phẩm
+                </a>
+            </div>
+        </div>
+        <div class="col-1"></div>
+
+        <div class="col-1 fs-6 text-center position-relative">
+            <a href="./cart.html"
+               style="text-decoration: none; color: unset;">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="myCart" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    10000
+                </span> Đơn hàng
+            </a>
+        </div>
+        <div class="col-1 fs-6 text-end position-relative">
+            <a href="./cart.html"
+               style="text-decoration: none; color: unset;">
+                <i class="fas fa-clipboard"></i>
+                <span id="myCart" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    10000
+                </span> Giỏ hàng
+            </a>
+        </div>
+        <div class="col-2 fs-6 text-end">
+            <a href="#" style="text-decoration: none; color: unset;">
+                <i class="fas fa-user"></i>
+                Nguyễn Lê Hồng Giang
+            </a>
+        </div>
+    </nav>
+    <hr>
+
+    <div>
+        @RenderBody()
+    </div>
+    <hr>
+
+    <div class="text-center">
+        <!-- Grid container -->
+        <div class="container pt-3 p-0">
+            <!-- Section: Social media -->
+            <section class="mb-1">
+                <!-- Facebook -->
+                <a class="btn btn-floating m-1" title="Nguyễn Lê Hồng Giang" style="background-color: #800080;" href="#!"
+                   role="button"><i class="fab fa-facebook-f"></i></a>
+
+                <!-- Google -->
+                <a class="btn btn-floating m-1" title="Nguyễn Lê Hồng Giang PH26511" style="background-color: #800080;"
+                   href="#!" role="button"><i class="fab fa-google"></i></a>
+
+                <!-- Instagram -->
+                <a class="btn btn-floating m-1" title="giang.gemini" style="background-color: #800080;" href="#!"
+                   role="button"><i class="fab fa-instagram"></i></a>
+
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+        <!-- Copyright -->
+        <div class="text-center pb-3">
+            © 2023 Copyright:
+            <a style="color: unset;">GiangNLHPH26511</a>
+        </div>
+        <!-- Copyright -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+
+</html>
+
+

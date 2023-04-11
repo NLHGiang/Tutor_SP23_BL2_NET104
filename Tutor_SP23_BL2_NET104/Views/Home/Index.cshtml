@@ -1,0 +1,82 @@
+﻿@using Tutor_SP23_BL2_NET104.Models;
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = @"~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+@{
+    List<Product> listProduct = ViewBag.listProduct;
+}
+
+<div class="py-4" style="background-color: #ffffff70;">
+    <div class="container" style="box-shadow: 0 0px 10px rgba(187, 51, 255, 0.8);">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" style="background-color: #ffffff70;">
+                <div class="carousel-item text-center active">
+                    <img src="https://tuongvip.vn/public/uploads/products/44768/tranh-treo-tuong-nghe-thuat-truu-tuong.jpg"
+                         style="height: 45vw; width: 70vw; object-fit: cover; object-position:top;" alt="...">
+                </div>
+                <div class="carousel-item text-center">
+                    <img src="https://tuongvip.vn/public/uploads/products/57505/tranh-treo-tuong-nghe-thuat-hinh-hoc-toi-gian-02.jpg"
+                         class="" style="height: 45vw; width: 70vw; object-fit: cover; object-position:top;" alt="...">
+                </div>
+                <div class="carousel-item text-center">
+                    <img src="https://tuongvip.vn/public/uploads/products/59925/tranh-treo-tuong-son-dau-phong-canh-lang-que-dep-11.jpg"
+                         class="" style="height: 45vw; width: 70vw; object-fit: cover; object-position:top;" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="overlay">
+            <a href="#about">
+                <div class="text fs-1 fw-bold p-5">VỀ GIANGNLH</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="content p-5">
+    <div class="newest pb-3">
+        <h2>Sản Phẩm Mới Nhất</h2>
+        <hr style="color: unset; height: 3px; opacity: 0.5; background-color: rgb(170, 0, 255); box-shadow: 0 1px 2px rgba(187, 51, 255, 1);">
+        <div class="product row p-0 m-0 gap-0">
+            @foreach (var pro in listProduct)
+            {
+                <div class="col-lg-3 col-md-3 pt-5">
+                    <div class="product-image rounded p-2">
+                        <img class="p-2" src="@(pro.Image)" alt="product" style="object-fit: cover; max-width: 100%; height: auto;">
+                        <div class="product-title p-2 text-truncate">
+                            <a class="text-truncate" style="color: unset;text-decoration: none;" title="@(pro.Name)"
+                               href="~/Customer/Product/Details/@(pro.Id)">
+                                @(pro.Name)
+                            </a>
+                            <div class="product-price">
+                                <small class="text-muted" style="text-decoration: line-through;">
+                                    @(pro.Price)<small style="font-size: small;vertical-align: top;text-decoration-line: underline;">đ</small>
+                                </small>
+                                <span>
+                                    @(pro.ReducedPrice)<span style="font-size: small;vertical-align: top;text-decoration-line: underline;">đ</span>
+                                </span>
+                            </div>
+                            <div class="product-price" enctype="multipart/form-data">
+                                @Html.ActionLink("Thêm vào giỏ hàng",
+                                "Create",  // <-- Controller Name.
+                                "Cart",   // <-- ActionMethod
+                                new {idProduct = pro.Id, idUser = Guid.Parse("8871ad42-6960-473d-aa75-aabc6edf5014") },
+                                null
+                                )
+                            </div>
+                        </div>
+                        <div class="row m-0 p-0">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="content row pb-3">
+    <a class="text-center btn-product rounded p-3" style="margin: 0 auto;width: fit-content;" href="~/Customer/Product/Index">
+        Xem tất cả sản phẩm
+    </a>
+</div>

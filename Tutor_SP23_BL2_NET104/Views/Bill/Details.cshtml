@@ -1,0 +1,80 @@
+﻿@using System.Globalization;
+@using Tutor_SP23_BL2_NET104.Models;
+@{
+    ViewData["Title"] = "Chi tiết hóa đơn";
+    Layout = @"~/Views/Shared/_CustomerLayout.cshtml";
+
+    Bill bill = ViewBag.bill;
+    List<Product> listProduct = ViewBag.listProduct;
+    List<ProductBill> listProductBill = ViewBag.listProductBill; // List sản phẩm trong hóa đơn
+}
+
+@if (listProductBill == null)
+{
+
+}
+else
+{
+    <div class="content pb-5 bg-white">
+        <div class="container row m-0 p-0">
+            <h3 class="text-uppercase text-center py-4 col-8" style="text-align: right!important;">Hóa đơn @bill.Id</h3>
+            <div class="col-2"></div>
+            <a href="~/Admin/Product/Create" class="btn btn-product  my-3 py-2" style="float: right !important; width:fit-content; height:fit-content;">Thêm sản phẩm</a>
+            <div class="col-2">
+            </div>
+        </div>
+        <table class="table table-hover text-center"
+               style="max-width: 1000px; margin: 0 auto;box-shadow: 0px 0px 30px rgba(187,51,255,1); color: unset; table-layout: fixed; vertical-align: middle;">
+            <thead class="fs-6">
+                <tr>
+                    <th scope="col">STT</th>
+                    <th colspan="3">Sản phẩm</th>
+                    <th>Giá tiền</th>
+                    <th>SL mua</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var index = 1;
+                }
+                @foreach (ProductBill proBill in listProductBill)
+                {
+                    <tr>
+                        <th scope="row">@(index++)</th>
+                        <td colspan="3">
+                            <div class="row p-0 m-0">
+                                <div class="col-6">
+                                    <img class="p-2" src="@(listProduct.FirstOrDefault(c=>c.Id == proBill.IdProduct).Image)" alt="product"
+                                         style="object-fit: cover; max-width: 100%;height: auto;">
+                                </div>
+                                <div class="col-6 py-4">
+                                    <p class="text-start" style="text-overflow: ellipsis;">@(listProduct.FirstOrDefault(c => c.Id == proBill.IdProduct).Name)</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>@(string.Format(new CultureInfo("vi-VN"), "{0:C0}", proBill.ReducedPrice))</td>
+                        <td>@(proBill.Amount)</td>
+                        <td class="text-break"><b>@(string.Format(new CultureInfo("vi-VN"), "{0:C0}", (proBill.ReducedPrice * proBill.Amount)))</b></td>
+                    </tr>
+                }
+
+                <tr>
+                    <th class="text-uppercase fs-5" colspan="6">
+                        Tổng thành tiền (@listProductBill.Count())
+                    </th>
+                    @{
+                        // Thành tiền của từng SP (PricePerProduct) = Giá SP * số lượng trong giỏ hàng
+                        // Tổng thành tiền = PricePerProduct1 + PricePerProduct2 + PricePerProduct3
+
+                        // B1: Tìm giá của từng sản phẩm
+                        // B2: Nhân giá cho số lượng trong giỏ hàng -> PricePerProduct
+                        // B3: Cộng tất cả PricePerProduct tìm được
+                    }
+                    <td class="fs-6"><b>@listProductBill.Sum(c => c.Amount * c.ReducedPrice)</b></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+}

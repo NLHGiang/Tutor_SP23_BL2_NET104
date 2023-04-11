@@ -1,0 +1,83 @@
+﻿@using Tutor_SP23_BL2_NET104.Models;
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = @"~/Views/Shared/_CustomerLayout.cshtml";
+    List<CartDetails> listCartDetails = ViewBag.listCartDetails;
+    List<Product> listProduct = ViewBag.listProduct;
+}
+
+<div class="content pb-5 bg-white">
+    <h3 class="text-uppercase text-center py-4">Giỏ hàng của bạn</h3>
+
+    <table class="table table-hover text-center"
+           style="max-width: 1000px; margin: 0 auto;box-shadow: 0px 0px 30px rgba(187,51,255,1); color: unset; table-layout: fixed; vertical-align: middle;">
+        <thead class="fs-6">
+            <tr>
+                <th>STT</th>
+                <th colspan="3">Sản phẩm</th>
+                <th>Giá tiền</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var index = 0;
+            }
+            @foreach (var productInCart in listCartDetails)
+            {
+                <tr>
+                    <th>@(index + 1)</th>
+                    <td colspan="3">
+                        <div class="row p-0 m-0">
+                            <div class="col-6">
+                                <img class="p-2"
+                                     src="@listProduct.FirstOrDefault(c=>c.Id == productInCart.IdProduct).Image"
+                                     alt="product" style="object-fit: cover; max-width: 100%;height: auto;">
+                            </div>
+                            <div class="col-6 py-4">
+                                <p class="text-start" style="text-overflow: ellipsis;">@listProduct.FirstOrDefault(c=>c.Id == productInCart.IdProduct).Name</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>@listProduct.FirstOrDefault(c=>c.Id == productInCart.IdProduct).ReducedPrice</td>
+                    <td>@productInCart.Amount</td>
+                    <td><b>@(listProduct.FirstOrDefault(c => c.Id == productInCart.IdProduct).ReducedPrice * productInCart.Amount)</b></td>
+                    <td colspan="2">
+                        <div class="btn btn-product">
+                            @Html.ActionLink("Xóa",
+                            "Delete",  // <-- Controller Name.
+                            "Cart",   // <-- ActionMethod
+                            new {idProduct = @productInCart.IdProduct, idUser = Guid.Parse("8871ad42-6960-473d-aa75-aabc6edf5014") },
+                            null
+                            )
+                        </div>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <th class="text-uppercase fs-5" colspan="6">
+                    Tổng thành tiền (@listCartDetails.Count())
+                </th>
+                @{
+                    // Thành tiền của từng SP (PricePerProduct) = Giá SP * số lượng trong giỏ hàng
+                    // Tổng thành tiền = PricePerProduct1 + PricePerProduct2 + PricePerProduct3
+
+                    // B1: Tìm giá của từng sản phẩm
+                    // B2: Nhân giá cho số lượng trong giỏ hàng -> PricePerProduct
+                    // B3: Cộng tất cả PricePerProduct tìm được
+                }
+                <td class="fs-6"><b>@listCartDetails.Sum(c => c.Amount * (listProduct.FirstOrDefault(x=>x.Id == c.IdProduct).ReducedPrice))</b></td>
+                <td colspan="2">
+                    @Html.ActionLink("Mua hàng",
+                    "Create",  // <-- ActionMethod
+                    "Bill",   // <-- Controller Name.
+                    new { idUser = "8871ad42-6960-473d-aa75-aabc6edf5014"},
+                    null
+                    )
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
